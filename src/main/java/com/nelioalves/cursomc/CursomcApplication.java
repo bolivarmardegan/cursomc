@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.domain.Cidade;
+import com.nelioalves.cursomc.domain.Cliente;
+import com.nelioalves.cursomc.domain.Endereco;
 import com.nelioalves.cursomc.domain.Estado;
 import com.nelioalves.cursomc.domain.Produto;
+import com.nelioalves.cursomc.domain.enums.TipoCliente;
 import com.nelioalves.cursomc.repositories.CategoriaRepository;
 import com.nelioalves.cursomc.repositories.CidadeRepository;
+import com.nelioalves.cursomc.repositories.ClienteRepository;
+import com.nelioalves.cursomc.repositories.EnderecoRepository;
 import com.nelioalves.cursomc.repositories.EstadoRepository;
 import com.nelioalves.cursomc.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class CursomcApplication implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -66,6 +77,15 @@ public class CursomcApplication implements CommandLineRunner{
 		
 		this.estadoRepository.saveAll(Arrays.asList(minasGerais, saoPaulo));
 		this.cidadeRepository.saveAll(Arrays.asList(uberlandia,spcity,campinas));
+		
+		Cliente maria = new Cliente(null, "Maria Antonieta", "maria@gmail.com", "311.555.999-90", TipoCliente.PESSOAFISICA);
+		maria.getTelefones().addAll(Arrays.asList("11-9898-6565","11-9995-8956"));
+		Endereco endMaria = new Endereco(null, "Rua Flores", "300", "Apartamento 303", "Jardim", "03663015", maria, uberlandia);
+		Endereco endMaria2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "036777777", maria, spcity);
+		maria.getEnderecos().addAll(Arrays.asList(endMaria, endMaria2));
+		
+		this.clienteRepository.saveAll(Arrays.asList(maria));
+		this.enderecoRepository.saveAll(Arrays.asList(endMaria,endMaria2));
 		
 	}
 }
