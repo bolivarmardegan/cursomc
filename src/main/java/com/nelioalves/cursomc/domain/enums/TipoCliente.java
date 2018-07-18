@@ -1,6 +1,5 @@
 package com.nelioalves.cursomc.domain.enums;
 
-import org.hibernate.type.descriptor.java.JdbcTimestampTypeDescriptor.TimestampMutabilityPlan;
 
 public enum TipoCliente {
 	PESSOAFISICA(1,"Pessoa Física"),
