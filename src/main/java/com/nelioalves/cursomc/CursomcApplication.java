@@ -15,6 +15,7 @@ import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.domain.Endereco;
 import com.nelioalves.cursomc.domain.Estado;
 import com.nelioalves.cursomc.domain.ItemPedido;
+import com.nelioalves.cursomc.domain.Pagamento;
 import com.nelioalves.cursomc.domain.PagamentoComBoleto;
 import com.nelioalves.cursomc.domain.PagamentoComCartao;
 import com.nelioalves.cursomc.domain.Pedido;
@@ -58,7 +59,7 @@ public class CursomcApplication implements CommandLineRunner{
 	@Autowired
 	private PedidoRepository pedidoRepository;
 	
-	@Autowired	
+	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
@@ -127,6 +128,7 @@ public class CursomcApplication implements CommandLineRunner{
 		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 800.00);
 		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 80.00);
 		
+		
 		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
 		ped2.getItens().addAll(Arrays.asList(ip3));
 		
@@ -135,7 +137,7 @@ public class CursomcApplication implements CommandLineRunner{
 		p3.getItens().addAll(Arrays.asList(ip2));
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
-		
+		this.itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 }
 
