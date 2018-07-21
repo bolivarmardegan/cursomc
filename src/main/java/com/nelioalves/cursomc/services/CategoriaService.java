@@ -16,11 +16,11 @@ public class CategoriaService {
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 	
-	public List<Categoria> buscarCategorias(){
+	public List<Categoria> findAll(){
 		return this.categoriaRepository.findAll();
 	}
 	
-	public Categoria buscarPorId(Integer id) {
+	public Categoria findById(Integer id) {
 		Optional<Categoria> categoria = this.categoriaRepository.findById(id);
 		return categoria.orElseThrow(() -> new ObjectNotFoundException
 				("Objeto não encontrado!" +id + "Tipo: "+ Categoria.class.getName()));
@@ -29,6 +29,12 @@ public class CategoriaService {
 	public Categoria insert(Categoria categoria) {
 		categoria.setId(null);
 		return this.categoriaRepository.save(categoria);
+	}
+
+	public Categoria update(Categoria categoria) {
+		this.findById(categoria.getId());
+		return this.categoriaRepository.save(categoria);
+		
 	}
 
 }
