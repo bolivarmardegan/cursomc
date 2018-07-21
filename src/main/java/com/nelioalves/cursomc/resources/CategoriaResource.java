@@ -19,23 +19,29 @@ public class CategoriaResource {
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	@RequestMapping(value="/categoria/{id}", method = RequestMethod.GET)
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Categoria categoria = categoriaService.findById(id);
 		return ResponseEntity.ok().body(categoria);
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/{id}",method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody Categoria categoria){
 		categoria = this.categoriaService.insert(categoria);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
 	
-	@RequestMapping(value="{/id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Categoria> update(@RequestBody Categoria categoria, @PathVariable Integer id){
 		categoria.setId(id);
 		this.categoriaService.update(categoria);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		this.categoriaService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }
