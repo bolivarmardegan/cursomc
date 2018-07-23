@@ -75,8 +75,8 @@ public class CursomcApplication implements CommandLineRunner{
 		Categoria informatica = new Categoria(null, "Informática");
 		Categoria escritorio = new Categoria(null,"Escritório");
 		categorias.addAll(Arrays.asList(informatica,escritorio));
-		for(Long count = new Long(0); count < 999; count++) {
-			Categoria categoria = new Categoria(null, "Categoria: "+count);
+		for(int i=0; i<999;i++) {
+			Categoria categoria = new Categoria(null,"Categoria: "+i);
 			categorias.add(categoria);
 		}
 		
