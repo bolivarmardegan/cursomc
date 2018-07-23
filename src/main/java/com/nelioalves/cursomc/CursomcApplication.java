@@ -1,6 +1,9 @@
 package com.nelioalves.cursomc;
 
+import static org.hamcrest.CoreMatchers.describedAs;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -68,8 +71,14 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
+		ArrayList<Categoria> categorias = new ArrayList<>();
 		Categoria informatica = new Categoria(null, "Informática");
 		Categoria escritorio = new Categoria(null,"Escritório");
+		categorias.addAll(Arrays.asList(informatica,escritorio));
+		for(Long count = new Long(0); count < 999; count++) {
+			Categoria categoria = new Categoria(null, "Categoria: "+count);
+			categorias.add(categoria);
+		}
 		
 		Produto p1 = new Produto(null, "Cmputador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
@@ -82,7 +91,7 @@ public class CursomcApplication implements CommandLineRunner{
 		p2.getCategorias().addAll(Arrays.asList(informatica,escritorio));
 		p3.getCategorias().addAll(Arrays.asList(informatica));
 		
-		this.categoriaRepository.saveAll(Arrays.asList(informatica, escritorio));
+		this.categoriaRepository.saveAll(categorias);
 		this.produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		
 		Estado minasGerais = new Estado(null,"Minas Gerais");
