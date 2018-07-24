@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -62,15 +63,15 @@ public class CategoriaResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/page", method=RequestMethod.GET)
+	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<CategoriaDTO>> findPage(
-			@RequestParam(value="page", defaultValue="0") Integer page, 
-			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
-			@RequestParam(value="direction", defaultValue="ASC") String direction,
+			@RequestParam(value="page", defaultValue="0") Integer page,
+			@RequestParam(value="linesPerPage", defaultValue="24")  Integer linesPerPage, 
+			@RequestParam(value="direction", defaultValue="ASC")  String direction,
 			@RequestParam(value="orderBy", defaultValue="nome") String orderBy) {
-		Page<Categoria> list = this.categoriaService.findPage(page, linesPerPage,  direction, orderBy);
-		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj));  
-		return ResponseEntity.ok().body(listDto);
+			Page<Categoria> listaDePAginas = this.categoriaService.findPage(page, linesPerPage, direction, orderBy);
+			Page<CategoriaDTO> categoriasDTO = listaDePAginas.map(
+					categoria -> new CategoriaDTO(categoria));
+			return ResponseEntity.ok().body(categoriasDTO);
 	}
-
 }

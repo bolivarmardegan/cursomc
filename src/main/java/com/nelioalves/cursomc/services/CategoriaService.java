@@ -52,6 +52,7 @@ public class CategoriaService {
 		}
 	}
 	
+
 	public Page<Categoria> findPage(Integer page, Integer linesPage, String direction, String orderBy){
 		PageRequest paginator = PageRequest.of(page, linesPage, Direction.valueOf(direction), orderBy);
 		return this.categoriaRepository.findAll(paginator);
