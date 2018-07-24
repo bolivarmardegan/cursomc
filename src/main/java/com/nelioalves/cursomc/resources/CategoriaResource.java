@@ -42,7 +42,7 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(categoria);
 	}
 	
-	@RequestMapping(value="/{id}",method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO categoriaDTO){
 		Categoria categoria = this.categoriaService.fromDTO(categoriaDTO);
 		categoria = this.categoriaService.insert(categoria);
@@ -51,7 +51,8 @@ public class CategoriaResource {
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Categoria> update(@RequestBody Categoria categoria, @PathVariable Integer id){
+	public ResponseEntity<Categoria> update(@Valid @RequestBody CategoriaDTO categoriaDTO, @PathVariable Integer id){
+		Categoria categoria = this.categoriaService.fromDTO(categoriaDTO);
 		categoria.setId(id);
 		this.categoriaService.update(categoria);
 		return ResponseEntity.noContent().build();
