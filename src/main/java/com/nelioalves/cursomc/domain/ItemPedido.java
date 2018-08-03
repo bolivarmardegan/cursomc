@@ -1,9 +1,6 @@
 package com.nelioalves.cursomc.domain;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
-
 import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -40,6 +37,10 @@ public class ItemPedido implements Serializable{
 		return this.id.getPedido();
 	}
 	
+	public void setPedido(Pedido pedido) {
+		this.id.setPedido(pedido);
+	}
+	
 	public double getSubTotal() {
 		return (this.preco - this.desconto) * this.quantidade;
 	}
@@ -47,6 +48,10 @@ public class ItemPedido implements Serializable{
 	
 	public Produto getProduto() {
 		return this.id.getProduto();
+	}
+	
+	public void setProduto(Produto produto) {
+		this.id.setProduto(produto);
 	}
 
 	public ItemPedidoPK getId() {
