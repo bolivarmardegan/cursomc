@@ -124,19 +124,19 @@ public class DBService {
 		this.estadoRepository.saveAll(Arrays.asList(minasGerais, saoPaulo));
 		this.cidadeRepository.saveAll(Arrays.asList(uberlandia,spcity,campinas));
 		
-		Cliente maria = new Cliente(null, "Maria Antonieta", "maria@gmail.com", "311.555.999-90", TipoCliente.PESSOAFISICA);
-		maria.getTelefones().addAll(Arrays.asList("11-9898-6565","11-9995-8956"));
-		Endereco endMaria = new Endereco(null, "Rua Flores", "300", "Apartamento 303", "Jardim", "03663015", maria, uberlandia);
-		Endereco endMaria2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "036777777", maria, spcity);
-		maria.getEnderecos().addAll(Arrays.asList(endMaria, endMaria2));
+		Cliente bolivarMardegan = new Cliente(null, "Maria Antonieta", "bolivar.android@gmail.com", "311.555.999-90", TipoCliente.PESSOAFISICA);
+		bolivarMardegan.getTelefones().addAll(Arrays.asList("11-9898-6565","11-9995-8956"));
+		Endereco endMaria = new Endereco(null, "Rua Flores", "300", "Apartamento 303", "Jardim", "03663015", bolivarMardegan, uberlandia);
+		Endereco endMaria2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "036777777", bolivarMardegan, spcity);
+		bolivarMardegan.getEnderecos().addAll(Arrays.asList(endMaria, endMaria2));
 		
-		this.clienteRepository.saveAll(Arrays.asList(maria));
+		this.clienteRepository.saveAll(Arrays.asList(bolivarMardegan));
 		this.enderecoRepository.saveAll(Arrays.asList(endMaria,endMaria2));
 		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
-		Pedido ped1 = new Pedido(null, format.parse("30/09/2017 19:32"),  maria, endMaria);
-		Pedido ped2 = new Pedido(null, format.parse("10/10/2017 19:32"),  maria, endMaria2);
+		Pedido ped1 = new Pedido(null, format.parse("30/09/2017 19:32"),  bolivarMardegan, endMaria);
+		Pedido ped2 = new Pedido(null, format.parse("10/10/2017 19:32"),  bolivarMardegan, endMaria2);
 		
 		PagamentoComCartao pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pgto1);
@@ -145,7 +145,7 @@ public class DBService {
 				format.parse("20/10/2017 19:32"), format.parse("15/10/2017 19:32"));
 		ped2.setPagamento(pgto2);
 		
-		maria.getPedidos().addAll(Arrays.asList(ped1,ped2));
+		bolivarMardegan.getPedidos().addAll(Arrays.asList(ped1,ped2));
 		
 		this.pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		this.pagamentoRepository.saveAll(Arrays.asList(pgto1,pgto2));
