@@ -9,11 +9,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.nelioalves.cursomc.domain.ItemPedido;
 import com.nelioalves.cursomc.domain.PagamentoComBoleto;
 import com.nelioalves.cursomc.domain.Pedido;
-import com.nelioalves.cursomc.domain.Produto;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 import com.nelioalves.cursomc.repositories.ItemPedidoRepository;
 import com.nelioalves.cursomc.repositories.PagamentoRepository;
@@ -41,6 +39,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	public List<Pedido> buscarPedidos(){
 		return this.pedidoRepository.findAll();
@@ -73,7 +74,7 @@ public class PedidoService {
 			itemPedido.setPedido(pedido);
 		}
 		this.itemPedidoRepository.saveAll(pedido.getItens());
-		System.out.println(pedido);
+		this.emailService.sendOrderConfirmationEmail(pedido);
 		return pedido;
 	}
 
