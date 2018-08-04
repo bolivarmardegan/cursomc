@@ -1,8 +1,11 @@
 package com.nelioalves.cursomc.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -48,6 +51,14 @@ public class Pedido implements Serializable {
 		this.instante = instante;
 		this.cliente = cliente;
 		this.enderecoDeEntrega = enderecoDeEntrega;
+	}
+	
+	public double getValorTotal() {
+		double soma = 0.0;
+		for (ItemPedido itemPedido : itens) {
+			soma = soma + itemPedido.getSubTotal();
+		}
+		return soma;
 	}
 	
 	public Integer getId() {
@@ -132,6 +143,28 @@ public class Pedido implements Serializable {
 
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
+	}
+	
+	@Override
+	public String toString() {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		NumberFormat numberFormat = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+		StringBuilder builder = new StringBuilder();
+		builder.append("Pedido número");
+		builder.append(getId());
+		builder.append(", Instante: ");
+		builder.append(simpleDateFormat.format(getInstante()));
+		builder.append(", cliente: ");
+		builder.append(getCliente().getNome());
+		builder.append(", Situação do Pagamento: ");
+		builder.append(getPagamento().getEstado().getDescricao());
+		builder.append("\nDetalhes:\n ");
+		for (ItemPedido itemPedido : itens) {
+			builder.append(itemPedido.toString());
+		}
+		builder.append(", Valor Total: ");
+		builder.append(numberFormat.format(getValorTotal()));
+		return builder.toString();
 	}
 	
 	
