@@ -13,7 +13,7 @@ import com.nelioalves.cursomc.services.EmailService;
 import com.nelioalves.cursomc.services.SmtpEmailService;
 
 @Configuration
-@Profile("dev")
+@Profile("test")
 public class DevConfig {
 	
 	@Autowired
